@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: atlas-teamcity-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - teamcity_postgres_data:/var/lib/postgresql/data
+
+  server:
+    image: jetbrains/teamcity-server
+    container_name: atlas-teamcity-server
+    depends_on:
+      - postgres
+    ports:
+      - "8111:8111"
+    volumes:
+      - teamcity_server_data:/data/teamcity_server/datadir
+      - teamcity_server_logs:/opt/teamcity/logs
+
+  agent:
+    image: atlas-teamcity-agent:0.2.0
+    container_name: atlas-teamcity-agent
+    environment:
+      SERVER_URL: http://server:8111
+    volumes:
+      - teamcity_agent_config:/data/teamcity_agent/conf
+
+volumes:
+  teamcity_postgres_data:
+  teamcity_server_data:
+  teamcity_server_logs:
+  teamcity_agent_config:
