@@ -26,6 +26,9 @@ services:
     user: root
     environment:
       SERVER_URL: http://server:8111
+      GIT_CONFIG_COUNT: "1"
+      GIT_CONFIG_KEY_0: safe.directory
+      GIT_CONFIG_VALUE_0: "*"
     volumes:
       - teamcity_agent_config:/data/teamcity_agent/conf
       - /var/run/docker.sock:/var/run/docker.sock
