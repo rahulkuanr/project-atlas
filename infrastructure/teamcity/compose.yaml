@@ -27,6 +27,7 @@ services:
       SERVER_URL: http://server:8111
     volumes:
       - teamcity_agent_config:/data/teamcity_agent/conf
+      - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
   teamcity_postgres_data:
