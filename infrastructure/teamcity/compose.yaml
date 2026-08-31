@@ -23,6 +23,7 @@ services:
   agent:
     image: atlas-teamcity-agent:0.2.0
     container_name: atlas-teamcity-agent
+    user: root
     environment:
       SERVER_URL: http://server:8111
     volumes:
